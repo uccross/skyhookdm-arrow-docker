@@ -1,0 +1,25 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Log into registry
+      run: docker login -u jcnitdgp25 --password Kontainers@12345
+    
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag jcnitdgp25/skyhookdm-arrow:0.1
+
+    - name: Push image
+      run: docker push jcnitdgp25/skyhookdm-arrow:0.1

@@ -14,6 +14,7 @@ cmake -DCMAKE_BUILD_TYPE=Debug \
           -DARROW_CSV=ON \
           ..
     
-make install
+make -j4 install
 
 cp ./debug/libcls_arrow* /usr/lib64/rados-classes/
+cp -r /usr/local/lib64/. /usr/local/lib
