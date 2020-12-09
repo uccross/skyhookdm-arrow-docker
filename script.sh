@@ -11,6 +11,7 @@ cmake -DCMAKE_BUILD_TYPE=Debug \
           -DARROW_PARQUET=ON \
           -DARROW_BUILD_TESTS=ON \
           -DARROW_DATASET=ON \
+          -DARROW_PYTHON=ON \
           -DARROW_CSV=ON \
           ..
     
