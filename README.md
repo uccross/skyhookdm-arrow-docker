@@ -14,6 +14,7 @@ change your Rook Ceph cluster to the Arrow based SkyhookDM cluster.
   2) After the client Pod is `running`, copy the Ceph configuration and keyring to `/etc/ceph/ceph.conf` and `/etc/ceph/keyring` respectively inside the client Pod. You can verify the connection to the SkyhookDM cluster by executing `ceph -s` from inside the Pod.
 
   3) Next, we need to write some objects containing Arrow IPC Tables. This can be done by using the `rados put` utility.
+     The object blobs can be downloaded from [here](https://drive.google.com/file/d/1aDnFbPrVanczxBEKpbT94sPUVLB3Oz5c/view?usp=sharing).
      ```
      rados -p test-pool put nyctaxi.4mb.arrow obj.0
      rados -p test-pool put nyctaxi.4mb.arrow obj.1
