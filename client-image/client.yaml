@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: skyhookdm-arrow-python-client
+  namespace: rook-ceph
+spec:
+  restartPolicy: Always
+  containers:
+    - name: skyhookdm-arrow-python-client
+      image: jcnitdgp25/skyhookdm-client:0.1
+      command: ["sleep", "infinity"]
+      env:
+      - name: LD_LIBRARY_PATH
+        value: /usr/local/lib/
