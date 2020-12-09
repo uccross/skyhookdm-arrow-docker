@@ -1,6 +1,6 @@
 # Deploying SkyhookDM with Arrow CLS plugins on Rook
 
-* Change the Ceph image tag [here](https://github.com/rook/rook/blob/master/cluster/examples/kubernetes/ceph/cluster.yaml#L24) to the      image built from [this](https://github.com/JayjeetAtGithub/skyhookdm-arrow/tree/master/skyhookdm-image) repo (or you can quickly use `jcnitdgp25/skyhookdm-arrow:0.1` as the image tag) to
+* Change the Ceph image tag in the Rook CRD [here](https://github.com/rook/rook/blob/master/cluster/examples/kubernetes/ceph/cluster.yaml#L24) to the      image built from [this](https://github.com/JayjeetAtGithub/skyhookdm-arrow/tree/master/skyhookdm-image) dir (or you can quickly use `jcnitdgp25/skyhookdm-arrow:0.1` as the image tag) to
 change your Rook Ceph cluster to the Arrow based SkyhookDM cluster. 
 
 * After the cluster is updated, we need to deploy a client Pod with the Arrow Python (with RadosDataset API) library installed to start interacting with the cluster. This can be achieved by following these steps:
