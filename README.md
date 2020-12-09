@@ -5,7 +5,7 @@ change your Rook Ceph cluster to the Arrow based SkyhookDM cluster.
 
 * After the cluster is updated, we need to deploy a client Pod with the Arrow Python (with RadosDataset API) library installed to start interacting with the cluster. This can be achieved by following these steps:
 
-  1) Create a client Pod for connecting to the SkyhookDM cluster using [this](https://github.com/JayjeetAtGithub/skyhookdm-client) client image that has PyArrow with RadosDataset bindings pre-installed. The Pod config can be found [here](https://github.com/JayjeetAtGithub/skyhookdm-client/blob/master/client.yaml). The Pod can be created by doing,
+  1) Create a client Pod for connecting to the SkyhookDM cluster using [this](https://github.com/JayjeetAtGithub/skyhookdm-arrow/tree/master/client-image) client image that has PyArrow with RadosDataset bindings pre-installed. The Pod config can be found [here](https://github.com/JayjeetAtGithub/skyhookdm-arrow/blob/master/client-image/client.yaml). The Pod can be created by doing,
   
   ```bash
   kubectl create -f client.yaml
@@ -21,4 +21,4 @@ change your Rook Ceph cluster to the Arrow based SkyhookDM cluster.
      ...
      ```
 
-  5) Lastly, the example Python script given [here](https://github.com/JayjeetAtGithub/skyhookdm-client/blob/master/client.py) can be executed from inside the client Pod to connect to the SkyhookDM cluster and start executing queries.
+  5) Lastly, the example Python script given [here](https://github.com/JayjeetAtGithub/skyhookdm-arrow/blob/master/client-image/client.py) can be executed from inside the client Pod to connect to the SkyhookDM cluster and start executing queries.
