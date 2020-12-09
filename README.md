@@ -1,5 +1,4 @@
-# Instructions
-
+# Deploying SkyhookDM with Arrow CLS plugins on Rook
 
 * Change the Ceph image tag [here](https://github.com/rook/rook/blob/master/cluster/examples/kubernetes/ceph/cluster.yaml#L24) to the      image built from this repo (or you can quickly use `jcnitdgp25/skyhookdm-arrow:0.1` as the image tag) to
 change your Rook Ceph cluster to the Arrow based SkyhookDM cluster. 
