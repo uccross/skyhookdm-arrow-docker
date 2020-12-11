@@ -3,9 +3,7 @@ set -e
 
 cd /arrow/python
 
-yum install -y python3-rados
 pip3 install -r requirements-build.txt -r requirements-test.txt
-pip3 install wheel
 
 export WORKDIR=${WORKDIR:-$HOME}
 export ARROW_HOME=$WORKDIR/dist
