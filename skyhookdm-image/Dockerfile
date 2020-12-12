@@ -4,6 +4,7 @@ RUN yum -y update && \
     yum -y install  wget \
                     git \
                     bc \
+                    libssl-devel \
                     librados-devel \
                     rados-objclass-devel \
                     python3-rados && \
