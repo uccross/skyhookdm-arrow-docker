@@ -7,6 +7,7 @@ RUN yum -y update && \
                     librados-devel \
                     rados-objclass-devel \
                     python3-rados && \
+    yum -y group install "Development Tools" && \
     yum clean all
 
 RUN wget https://github.com/Kitware/CMake/releases/download/v3.15.2/cmake-3.15.2.tar.gz && \
