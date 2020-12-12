@@ -1,7 +1,8 @@
 FROM ceph/ceph:v15.2
 
 RUN yum -y update && \
-    yum -y install  git \
+    yum -y install  wget \
+                    git \
                     bc \
                     librados-devel \
                     rados-objclass-devel \
