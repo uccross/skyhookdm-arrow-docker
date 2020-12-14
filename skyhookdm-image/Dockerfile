@@ -1,22 +1,8 @@
-FROM ceph/ceph:v15.2
+FROM ceph/ceph:v15.2.4
 
-RUN yum -y update && \
-    yum -y install  wget \
-                    git \
-                    bc \
-                    curl \
-                    librados-devel \
-                    rados-objclass-devel \
-                    python3-rados && \
-    yum -y group install "Development Tools" && \
-    yum clean all
-
-RUN wget https://github.com/Kitware/CMake/releases/download/v3.15.2/cmake-3.15.2.tar.gz && \
-    tar -zxvf cmake-3.15.2.tar.gz && \
-    cd cmake-3.15.2 && \
-    ./bootstrap && \
-    make && \
-    make install
+RUN dnf group install -y "Development Tools" && \
+    dnf install -y cmake wget curl rados-objclass-devel python3-rados librados-devel && \
+    dnf clean all
 
 COPY script.sh /
 
