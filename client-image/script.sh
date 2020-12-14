@@ -4,6 +4,7 @@ set -e
 cd /arrow/python
 
 pip3 install -r requirements-build.txt -r requirements-test.txt
+pip3 install wheel
 
 export WORKDIR=${WORKDIR:-$HOME}
 export ARROW_HOME=$WORKDIR/dist
