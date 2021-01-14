@@ -1,0 +1,25 @@
+name: Build and Push Client image
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+    - 'client-image/**'
+  pull_request:
+    branches: [ master ]
+    paths:
+    - 'client-image/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Log into registry
+      run: docker login -u jcnitdgp25 --password Kontainers@12345
+    
+    - name: Build and Push the Client image
+      run: |
+        docker build -t jcnitdgp25/skyhookdm-client:0.1 client-image/
+        docker push jcnitdgp25/skyhookdm-client:0.1

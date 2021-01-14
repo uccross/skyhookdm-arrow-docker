@@ -1,10 +1,14 @@
-name: Build and Push SkyhookDM and Client images
+name: Build and Push SkyhookDM image
 
 on:
   push:
     branches: [ master ]
+    paths:
+    - 'skyhookdm-image/**'
   pull_request:
     branches: [ master ]
+    paths:
+    - 'skyhookdm-image/**'
 
 jobs:
   build:
@@ -19,8 +23,3 @@ jobs:
       run: |
         docker build -t jcnitdgp25/skyhookdm-arrow:0.1 skyhookdm-image/
         docker push jcnitdgp25/skyhookdm-arrow:0.1
-
-    - name: Build and Push the Client image
-      run: |
-        docker build -t jcnitdgp25/skyhookdm-client:0.1 client-image/
-        docker push jcnitdgp25/skyhookdm-client:0.1
