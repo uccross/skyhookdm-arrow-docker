@@ -13,6 +13,6 @@ WORKDIR /
 
 ENV BRANCH=$BRANCH
 
-RUN git clone https://github.com/uccross/arrow --branch "$BRANCH"
+RUN git clone https://github.com/uccross/arrow
 
 RUN ./script.sh

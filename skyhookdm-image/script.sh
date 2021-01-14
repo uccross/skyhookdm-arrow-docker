@@ -2,6 +2,9 @@
 set -e
 
 cd arrow/cpp
+
+git checkout $BRANCH
+
 mkdir -p debug
 cd debug
 cmake -DCMAKE_BUILD_TYPE=Debug \
