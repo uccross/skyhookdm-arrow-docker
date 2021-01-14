@@ -1,5 +1,4 @@
 ARG CEPH_VERSION=v15.2.4
-ARG BRANCH=rados-dataset-dev
 
 FROM ceph/ceph:$CEPH_VERSION
 
@@ -11,8 +10,6 @@ COPY script.sh /
 
 WORKDIR /
 
-ENV BRANCH=$BRANCH
-
-RUN git clone https://github.com/uccross/arrow
+RUN git clone https://github.com/uccross/arrow --branch rados-dataset-dev
 
 RUN ./script.sh
