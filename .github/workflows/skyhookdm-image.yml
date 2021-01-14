@@ -5,10 +5,7 @@ on:
     branches: [ master ]
     paths:
     - 'skyhookdm-image/**'
-  pull_request:
-    branches: [ master ]
-    paths:
-    - 'skyhookdm-image/**'
+    - '.github/**'
 
 jobs:
   build:
