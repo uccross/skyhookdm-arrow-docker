@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e
 
-git clone https://github.com/uccross/arrow --branch ${BRANCH}
-
 cd arrow/cpp
 mkdir -p debug
 cd debug
