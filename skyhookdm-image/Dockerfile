@@ -11,6 +11,8 @@ COPY script.sh /
 
 WORKDIR /
 
-RUN git clone https://github.com/uccross/arrow --branch $BRANCH
+ENV BRANCH=$BRANCH
+
+RUN git clone https://github.com/uccross/arrow --branch "$BRANCH"
 
 RUN ./script.sh
