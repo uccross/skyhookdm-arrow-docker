@@ -20,6 +20,14 @@ jobs:
       run: docker login -u jcnitdgp25 --password Kontainers@12345
     
     - name: Build and Push the SkyhookDM image
+      env:
+        CEPH_VERSION: v15.2.4
+        BRANCH: rados-dataset-dev
       run: |
-        docker build -t jcnitdgp25/skyhookdm-arrow:0.1 skyhookdm-image/
+        docker build 
+          -t jcnitdgp25/skyhookdm-arrow:0.1 
+          --build-arg CEPH_VERSION=$CEPH_VERSION
+          --build-arg BRANCH=$BRANCH
+          skyhookdm-image/
+        
         docker push jcnitdgp25/skyhookdm-arrow:0.1
