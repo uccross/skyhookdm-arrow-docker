@@ -14,8 +14,8 @@ jobs:
     - uses: actions/checkout@v2
     
     - name: Log into registry
-      run: docker login -u jcnitdgp25 --password Kontainers@12345
-    
+      run: docker login -u jcnitdgp25 --password "$DOCKER_PASSWORD"
+
     - name: Build and Push the SkyhookDM image
       env:
         CEPH_VERSION: v15.2.4
