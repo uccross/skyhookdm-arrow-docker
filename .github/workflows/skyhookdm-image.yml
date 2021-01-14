@@ -1,4 +1,4 @@
-name: Build and Push SkyhookDM image
+name: skyhookdm
 
 on:
   push:
@@ -13,19 +13,30 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: Log into registry
+    - name: login to dockerhub
       env:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       run: |
-        docker login -u jcnitdgp25 --password "$DOCKER_PASSWORD"
+        docker login -u jcnitdgp25 \
+                     --password "$DOCKER_PASSWORD"
 
-    - name: Build and Push the SkyhookDM image
+    - name: build image
       env:
         CEPH_VERSION: v15.2.4
       run: |
         docker build \
-          -t jcnitdgp25/skyhookdm-arrow:0.1 \
+          -t jcnitdgp25/skyhookdm-arrow:latest \
           --build-arg CEPH_VERSION=$CEPH_VERSION \
           skyhookdm-image/
-        
-        docker push jcnitdgp25/skyhookdm-arrow:0.1
+    
+    - name: push latest version
+      run: |
+        docker push jcnitdgp25/skyhookdm-arrow:latest
+
+    - name: push tagged version
+      run: |
+        NOW=$(date '+%F-%H-%M')
+        docker tag jcnitdgp25/skyhookdm-arrow:latest \
+                   jcnitdgp25/skyhookdm-arrow:$NOW
+
+        docker push jcnitdgp25/skyhookdm-arrow:$NOW
