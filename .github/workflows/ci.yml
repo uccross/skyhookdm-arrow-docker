@@ -1,9 +1,10 @@
-name: client
+name: ci
 
 on:
   push:
     branches: [ master ]
     paths:
+    - 'skyhookdm-image/**'
     - 'client-image/**'
     - '.github/**'
 
@@ -20,17 +21,38 @@ jobs:
         docker login -u jcnitdgp25 \
                      --password "$DOCKER_PASSWORD"
 
-    - name: build image
+    - name: build skyhook image
+      env:
+        CEPH_VERSION: v15.2.4
+      run: |
+        docker build \
+          -t jcnitdgp25/skyhookdm-arrow:latest \
+          --build-arg CEPH_VERSION=$CEPH_VERSION \
+          skyhookdm-image/
+    
+    - name: push skyhook latest version
+      run: |
+        docker push jcnitdgp25/skyhookdm-arrow:latest
+
+    - name: push skyhook tagged version
+      run: |
+        NOW=$(date '+%F-%H-%M')
+        docker tag jcnitdgp25/skyhookdm-arrow:latest \
+                   jcnitdgp25/skyhookdm-arrow:$NOW
+
+        docker push jcnitdgp25/skyhookdm-arrow:$NOW
+    
+    - name: build client image
       run: |
         docker build \
           -t jcnitdgp25/skyhookdm-client:latest \
           client-image/
     
-    - name: push latest version
+    - name: push client latest version
       run: |
         docker push jcnitdgp25/skyhookdm-client:latest
 
-    - name: push tagged version
+    - name: push client tagged version
       run: |
         NOW=$(date '+%F-%H-%M')
         docker tag jcnitdgp25/skyhookdm-client:latest \
