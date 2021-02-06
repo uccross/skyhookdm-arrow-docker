@@ -7,7 +7,7 @@ spec:
   restartPolicy: Always
   containers:
     - name: skyhookdm-arrow-python-client
-      image: jcnitdgp25/skyhookdm-client:0.1
+      image: jcnitdgp25/skyhookdm-client:latest
       command: ["sleep", "infinity"]
       env:
       - name: LD_LIBRARY_PATH
