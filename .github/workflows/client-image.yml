@@ -1,14 +1,11 @@
-name: Build and Push Client image
+name: client
 
 on:
   push:
     branches: [ master ]
     paths:
     - 'client-image/**'
-  pull_request:
-    branches: [ master ]
-    paths:
-    - 'client-image/**'
+    - '.github/**'
 
 jobs:
   build:
@@ -16,10 +13,27 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: Log into registry
-      run: docker login -u jcnitdgp25 --password Kontainers@12345
-    
-    - name: Build and Push the Client image
+    - name: login to dockerhub
+      env:
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       run: |
-        docker build -t jcnitdgp25/skyhookdm-client:0.1 client-image/
-        docker push jcnitdgp25/skyhookdm-client:0.1
+        docker login -u jcnitdgp25 \
+                     --password "$DOCKER_PASSWORD"
+
+    - name: build image
+      run: |
+        docker build \
+          -t jcnitdgp25/skyhookdm-client:latest \
+          client-image/
+    
+    - name: push latest version
+      run: |
+        docker push jcnitdgp25/skyhookdm-client:latest
+
+    - name: push tagged version
+      run: |
+        NOW=$(date '+%F-%H-%M')
+        docker tag jcnitdgp25/skyhookdm-client:latest \
+                   jcnitdgp25/skyhookdm-client:$NOW
+
+        docker push jcnitdgp25/skyhookdm-client:$NOW

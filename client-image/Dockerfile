@@ -1,4 +1,4 @@
-FROM jcnitdgp25/skyhookdm-arrow:0.1
+FROM jcnitdgp25/skyhookdm-arrow:latest
 
 COPY script.sh /
 
