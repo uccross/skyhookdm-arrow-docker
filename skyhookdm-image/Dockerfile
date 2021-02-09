@@ -8,7 +8,6 @@ RUN dnf group install -y "Development Tools" && \
                    curl \
                    rados-objclass-devel \
                    python3-rados \
-                   libcephfs-devel \
                    librados-devel && \
     dnf clean all
 
