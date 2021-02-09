@@ -8,14 +8,13 @@ RUN dnf group install -y "Development Tools" && \
                    curl \
                    rados-objclass-devel \
                    python3-rados \
-                   libcephfs-devel \
                    librados-devel && \
     dnf clean all
 
-COPY script.sh /
-
 WORKDIR /
 
-RUN git clone https://github.com/uccross/arrow --branch rados-dataset-dev
+ADD arrow /arrow
+ADD skyhookdm-image/script.sh /
 
-RUN ./script.sh
+RUN ./script.sh 
+RUN rm -rf /arrow
