@@ -43,6 +43,7 @@ cp -r /usr/local/include/. /root/dist/include
 
 python3 setup.py build_ext --inplace --bundle-arrow-cpp bdist_wheel
 pip3 install dist/*.whl
+cp -r dist/*.whl /
 
 # check installation
 python3 -c "import pyarrow"
