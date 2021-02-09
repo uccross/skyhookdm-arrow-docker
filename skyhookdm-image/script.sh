@@ -1,7 +1,7 @@
 #!/bin/bash
 set -ex
 
-cd arrow/cpp
+cd /arrow/cpp
 
 mkdir -p debug
 cd debug

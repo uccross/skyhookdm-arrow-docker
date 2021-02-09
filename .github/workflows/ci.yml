@@ -8,6 +8,12 @@ on:
     - 'client-image/**'
     - '.github/**'
 
+  pull_request:
+    paths:
+    - 'skyhookdm-image/**'
+    - 'client-image/**'
+    - '.github/**'
+
 jobs:
   build:
     runs-on: ubuntu-latest
