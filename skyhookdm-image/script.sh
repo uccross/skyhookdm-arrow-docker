@@ -19,7 +19,7 @@ cmake -DCMAKE_BUILD_TYPE=Debug \
 make -j4 install
 
 cp ./debug/libcls_arrow* /usr/lib64/rados-classes/
-cp -r /usr/local/lib64/. /usr/local/lib
+cp -r /usr/local/lib64/. /usr/lib64
 
 # python api build
 cd /arrow/python
@@ -38,7 +38,7 @@ export PYARROW_WITH_RADOS=1
 mkdir -p /root/dist/lib
 mkdir -p /root/dist/include
 
-cp -r /usr/local/lib/. /root/dist/lib
+cp -r /usr/local/lib64/. /root/dist/lib
 cp -r /usr/local/include/. /root/dist/include
 
 python3 setup.py build_ext --inplace --bundle-arrow-cpp bdist_wheel
