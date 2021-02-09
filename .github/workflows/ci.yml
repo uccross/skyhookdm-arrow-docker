@@ -44,18 +44,16 @@ jobs:
           --file skyhookdm-image/Dockerfile \
           .
     
-    - name: push skyhook latest version
+    - name: push skyhook image
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       run: |
         docker push jcnitdgp25/skyhookdm-arrow:latest
-
-    - name: push skyhook tagged version
-      run: |
         NOW=$(date '+%F-%H-%M')
         docker tag jcnitdgp25/skyhookdm-arrow:latest \
                    jcnitdgp25/skyhookdm-arrow:$NOW
 
         docker push jcnitdgp25/skyhookdm-arrow:$NOW
-    
+
     - name: build client image
       run: |
         docker build \
@@ -63,13 +61,11 @@ jobs:
           --file client-image/Dockerfile \
           .
     
-    - name: push client latest version
+    - name: push client image
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       run: |
         docker push jcnitdgp25/skyhookdm-client:latest
-
-    - name: push client tagged version
-      run: |
-        NOW=$(date '+%F-%H-%M')
+                NOW=$(date '+%F-%H-%M')
         docker tag jcnitdgp25/skyhookdm-client:latest \
                    jcnitdgp25/skyhookdm-client:$NOW
 
