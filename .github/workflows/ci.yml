@@ -13,7 +13,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    
+
+    - name: clone the repository
+      run: |
+        git clone \
+          --branch rados-dataset-dev \
+          --depth=1 \
+          https://github.com/uccross/arrow
+
     - name: login to dockerhub
       env:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}

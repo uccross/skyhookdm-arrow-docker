@@ -16,6 +16,8 @@ COPY script.sh /
 
 WORKDIR /
 
-RUN git clone https://github.com/uccross/arrow --branch rados-dataset-dev
+ADD arrow/ /arrow
 
-RUN ./script.sh
+RUN ./script.sh 
+
+RUN rm -rf /arrow
