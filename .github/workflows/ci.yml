@@ -5,13 +5,11 @@ on:
     branches: [ master ]
     paths:
     - 'skyhookdm-image/**'
-    - 'client-image/**'
     - '.github/**'
 
   pull_request:
     paths:
     - 'skyhookdm-image/**'
-    - 'client-image/**'
     - '.github/**'
 
 jobs:
@@ -53,20 +51,3 @@ jobs:
                    jcnitdgp25/skyhookdm-arrow:$NOW
 
         docker push jcnitdgp25/skyhookdm-arrow:$NOW
-
-    - name: build client image
-      run: |
-        docker build \
-          -t jcnitdgp25/skyhookdm-client:latest \
-          --file client-image/Dockerfile \
-          .
-    
-    - name: push client image
-      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
-      run: |
-        docker push jcnitdgp25/skyhookdm-client:latest
-                NOW=$(date '+%F-%H-%M')
-        docker tag jcnitdgp25/skyhookdm-client:latest \
-                   jcnitdgp25/skyhookdm-client:$NOW
-
-        docker push jcnitdgp25/skyhookdm-client:$NOW
