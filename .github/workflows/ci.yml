@@ -41,7 +41,8 @@ jobs:
         docker build \
           -t jcnitdgp25/skyhookdm-arrow:latest \
           --build-arg CEPH_VERSION=$CEPH_VERSION \
-          skyhookdm-image/
+          --file skyhookdm-image/Dockerfile \
+          .
     
     - name: push skyhook latest version
       run: |
@@ -59,7 +60,8 @@ jobs:
       run: |
         docker build \
           -t jcnitdgp25/skyhookdm-client:latest \
-          client-image/
+          --file client-image/Dockerfile \
+          .
     
     - name: push client latest version
       run: |

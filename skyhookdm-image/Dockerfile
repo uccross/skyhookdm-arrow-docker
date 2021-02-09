@@ -12,12 +12,10 @@ RUN dnf group install -y "Development Tools" && \
                    librados-devel && \
     dnf clean all
 
-COPY script.sh /
-
 WORKDIR /
 
-ADD arrow/ /arrow
+ADD arrow /arrow
+ADD skyhookdm-image/script.sh /
 
 RUN ./script.sh 
-
 RUN rm -rf /arrow
