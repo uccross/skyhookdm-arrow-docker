@@ -18,13 +18,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: clone the repository
-      run: |
-        git clone \
-          --branch rados-dataset-dev \
-          --depth=1 \
-          https://github.com/uccross/arrow
-
     - name: login to dockerhub
       env:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
@@ -42,12 +35,12 @@ jobs:
           --file skyhookdm-image/Dockerfile \
           .
     
-    - name: push skyhook image
-      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
-      run: |
-        docker push jcnitdgp25/skyhookdm-arrow:latest
-        NOW=$(date '+%F-%H-%M')
-        docker tag jcnitdgp25/skyhookdm-arrow:latest \
-                   jcnitdgp25/skyhookdm-arrow:$NOW
+    # - name: push skyhook image
+    #   if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+    #   run: |
+    #     docker push jcnitdgp25/skyhookdm-arrow:latest
+    #     NOW=$(date '+%F-%H-%M')
+    #     docker tag jcnitdgp25/skyhookdm-arrow:latest \
+    #                jcnitdgp25/skyhookdm-arrow:$NOW
 
-        docker push jcnitdgp25/skyhookdm-arrow:$NOW
+    #     docker push jcnitdgp25/skyhookdm-arrow:$NOW
