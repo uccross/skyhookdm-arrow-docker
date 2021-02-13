@@ -18,12 +18,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: login to dockerhub
-      env:
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      run: |
-        docker login -u jcnitdgp25 \
-                     --password "$DOCKER_PASSWORD"
+    # - name: login to dockerhub
+    #   env:
+    #     DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    #   run: |
+    #     docker login -u jcnitdgp25 \
+    #                  --password "$DOCKER_PASSWORD"
 
     - name: build skyhook image
       env:
