@@ -4,12 +4,12 @@ on:
   push:
     branches: [ master ]
     paths:
-    - 'skyhookdm-image/**'
+    - 'docker/**'
     - '.github/**'
 
   pull_request:
     paths:
-    - 'skyhookdm-image/**'
+    - 'docker/**'
     - '.github/**'
 
 jobs:
@@ -18,20 +18,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: clone the repository
-      run: |
-        git clone \
-          --branch rados-dataset-dev \
-          --depth=1 \
-          https://github.com/uccross/arrow
-
-    - name: login to dockerhub
-      env:
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      run: |
-        docker login -u jcnitdgp25 \
-                     --password "$DOCKER_PASSWORD"
-
     - name: build skyhook image
       env:
         CEPH_VERSION: v15.2.4
@@ -39,15 +25,5 @@ jobs:
         docker build \
           -t jcnitdgp25/skyhookdm-arrow:latest \
           --build-arg CEPH_VERSION=$CEPH_VERSION \
-          --file skyhookdm-image/Dockerfile \
+          --file docker/Dockerfile \
           .
-    
-    - name: push skyhook image
-      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
-      run: |
-        docker push jcnitdgp25/skyhookdm-arrow:latest
-        NOW=$(date '+%F-%H-%M')
-        docker tag jcnitdgp25/skyhookdm-arrow:latest \
-                   jcnitdgp25/skyhookdm-arrow:$NOW
-
-        docker push jcnitdgp25/skyhookdm-arrow:$NOW
