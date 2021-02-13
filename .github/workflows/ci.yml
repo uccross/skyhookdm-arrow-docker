@@ -32,7 +32,7 @@ jobs:
         docker build \
           -t jcnitdgp25/skyhookdm-arrow:latest \
           --build-arg CEPH_VERSION=$CEPH_VERSION \
-          --file skyhookdm-image/Dockerfile \
+          --file docker/Dockerfile \
           .
     
     # - name: push skyhook image

@@ -1,9 +1,10 @@
 ARG CEPH_VERSION=v15.2.4
+
+FROM ceph/ceph:${CEPH_VERSION}
+
 ARG UCCROSS_ARROW_BRANCH=rados-dataset-dev
 
-FROM ceph/ceph:$CEPH_VERSION
-
-ADD skyhookdm-image/script.sh /
+ADD docker/script.sh /
 
 WORKDIR /
 
@@ -16,7 +17,7 @@ RUN dnf group install -y "Development Tools" && \
                    librados-devel && \
     dnf clean all && \
     git clone \
-        --branch $UCCROSS_ARROW_BRANCH \
+        --branch ${UCCROSS_ARROW_BRANCH} \
         --depth=1 \
         https://github.com/uccross/arrow && \
     ./script.sh && \
