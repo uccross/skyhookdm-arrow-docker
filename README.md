@@ -32,9 +32,14 @@ Docker image containing SkyhookDM built on top of Arrow along with C++ and Pytho
   ceph-fuse --client_fs myfs /path/to/cephfs/mount
   ```
 
-  4) Download some example dataset into `/path/to/cephfs/mount`.
+  4) Download some example dataset into `/path/to/cephfs/mount`. For example,
+  ```bash
+  cd /path/to/cephfs/mount/
+  wget https://raw.githubusercontent.com/JayjeetAtGithub/zips/main/nyc.zip
+  unzip nyc.zip
+  ```
 
-  4) Modify the example python script according to your needs and execute.
+  4) Modify the [example python script](./example.py) according to your needs and execute.
   ```bash
   python3 example.py
   ```
