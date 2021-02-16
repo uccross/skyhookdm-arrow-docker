@@ -7,34 +7,54 @@ Docker image containing SkyhookDM built on top of Arrow along with C++ and Pytho
 
 * After the cluster is updated, we need to deploy a Pod with the PyArrow (with RadosParquetFileFormat API) library installed to start interacting with the cluster. This can be achieved by following these steps:
 
-  1) Create a Pod for connecting to the SkyhookDM cluster using the SkyhookDM image that also has PyArrow with `RadosParquetFileFormat` bindings pre-installed. The Pod config can be found [here](./client.yaml). The Pod can be created by doing,
+  1) Update the ConfigMap with configuration options to be able to load the arrow CLS plugins.
   ```bash
-  kubectl create -f client.yaml
+  kubectl apply -f cls.yaml
+  ```
+
+  2) Create a Pod with PyArrow pre-installed for connecting to the cluster and running queries. 
+  ```bash
+  kubectl apply -f client.yaml
+  ```
+
+  3) Create a CephFS on the Rook cluster.
+  ```bash
+  kubectl create -f filesystem.yaml
   ```
   
-  2) Copy the Ceph configuration and Keyring from some OSD/MON Pod to the playground Pod.
+  4) Copy the Ceph configuration and Keyring from some OSD/MON Pod to the playground Pod.
   ```bash
   # copy the ceph config
-  kubectl -n rook-ceph cp rook-ceph-osd-0-xxxx-yyyy:/var/lib/rook/rook-ceph/rook-ceph.config rook-ceph-playground:/etc/ceph/ceph.conf
+  kubectl -n rook-ceph cp rook-ceph-osd-X-YYYYYYYY-ZZZZZ:/var/lib/rook/rook-ceph/rook-ceph.config ceph.conf
+  kubectl -n rook-ceph cp ceph.conf rook-ceph-playground:/etc/ceph/ceph.conf
 
   # copy the keyring
-  kubectl -n rook-ceph cp rook-ceph-osd-0-xxxx-yyyy:/var/lib/rook/rook-ceph/client.admin.keyring rook-ceph-playground:/var/lib/rook/rook-ceph/client.admin.keyring
+  kubectl -n rook-ceph cp rook-ceph-osd-X-YYYYYYYY-ZZZZZ:/var/lib/rook/rook-ceph/client.admin.keyring keyring
+  kubectl -n rook-ceph cp keyring rook-ceph-playground:/etc/ceph/keyring
   ```
 
-  3) Check the connection to the cluster from the client Pod by doing a quick `ceph -s`.
+  5) Check the connection to the cluster from the client Pod.
+  ```bash
+  # get a shell into the client pod
+  kubectl -n rook-ceph exec -it rook-ceph-playground bash
 
-  4) Now, install `ceph-fuse` and mount CephFS into some path in the client Pod using it. In a later release 
-  `ceph-fuse` will come installed in the SkyhookDM image itself.
+  # check the connection status
+  $ ceph -s
+  ```
+
+  6) Now, install `ceph-fuse` and mount CephFS into some path in the client Pod using it. [In a later release 
+  `ceph-fuse` will come installed in the SkyhookDM image itself.]
 
   ```bash
   yum install ceph-fuse
-  mkdir -p /path/to/cephfs/mount
-  ceph-fuse --client_fs myfs /path/to/cephfs/mount
+  mkdir -p /mnt/cephfs
+  ceph-fuse --client_fs cephfs /mnt/cephfs 
+  # the client_fs value can be different. Please check the filesystem.yaml file for details.
   ```
 
   4) Download some example dataset into `/path/to/cephfs/mount`. For example,
   ```bash
-  cd /path/to/cephfs/mount/
+  cd /mnt/cephfs
   wget https://raw.githubusercontent.com/JayjeetAtGithub/zips/main/nyc.zip
   unzip nyc.zip
   ```
