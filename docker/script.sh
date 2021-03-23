@@ -25,7 +25,7 @@ cp -r /usr/local/lib64/. /usr/lib64
 cd /arrow/python
 
 pip3 install -r requirements-build.txt -r requirements-test.txt
-pip3 install wheel
+pip3 install --upgrade wheel setuptools
 
 export WORKDIR=${WORKDIR:-$HOME}
 export ARROW_HOME=$WORKDIR/dist
