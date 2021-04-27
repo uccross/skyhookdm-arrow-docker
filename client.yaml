@@ -7,7 +7,7 @@ spec:
   restartPolicy: Always
   containers:
     - name: rook-ceph-playground
-      image: uccross/skyhookdm-arrow:dev-02d53f0c4b83d55eeda1d2425c2442d25a3e4db9
+      image: uccross/skyhookdm-arrow:v0.1.1
       securityContext:
         privileged: true
       command: ["sleep", "infinity"]
