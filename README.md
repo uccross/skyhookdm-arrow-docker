@@ -25,19 +25,19 @@ Docker image containing SkyhookDM built on top of Arrow along with C++ and Pytho
   4) Copy the Ceph configuration and Keyring from some OSD/MON Pod to the playground Pod.
   ```bash
   # copy the ceph config
-  kubectl -n rook-ceph cp <any-osd/mon-pod>:/var/lib/rook/rook-ceph/rook-ceph.config ceph.conf
-  kubectl -n rook-ceph cp ceph.conf rook-ceph-playground:/etc/ceph/ceph.conf
+  kubectl -n [namespace] cp <any-osd/mon-pod>:/var/lib/rook/rook-ceph/rook-ceph.config ceph.conf
+  kubectl -n [namespace] cp ceph.conf rook-ceph-playground:/etc/ceph/ceph.conf
   # NOTE: You need to change the keyring path to /etc/ceph/keyring in the config manually.
 
   # copy the keyring
-  kubectl -n rook-ceph cp <any-osd/mon-pod>:/var/lib/rook/rook-ceph/client.admin.keyring keyring
-  kubectl -n rook-ceph cp keyring rook-ceph-playground:/etc/ceph/keyring
+  kubectl -n [namespace] cp [any-osd/mon-pod]:/var/lib/rook/rook-ceph/client.admin.keyring keyring
+  kubectl -n [namespace] cp keyring rook-ceph-playground:/etc/ceph/keyring
   ```
 
   5) Check the connection to the cluster from the client Pod.
   ```bash
   # get a shell into the client pod
-  kubectl -n rook-ceph exec -it rook-ceph-playground bash
+  kubectl -n [namespace] exec -it rook-ceph-playground bash
 
   # check the connection status
   $ ceph -s
