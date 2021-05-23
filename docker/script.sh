@@ -1,7 +1,6 @@
 #!/bin/bash
 set -eux
 
-# c++ api and cls build
 cd /arrow/cpp
 
 mkdir -p debug
@@ -11,6 +10,7 @@ cmake -DCMAKE_BUILD_TYPE=Debug \
           -DARROW_PARQUET=ON \
           -DARROW_WITH_SNAPPY=ON \
           -DARROW_WITH_ZLIB=ON \
+          -DARROW_WITH_LZ4=ON \
           -DARROW_DATASET=ON \
           -DARROW_PYTHON=ON \
           -DARROW_CSV=ON \
@@ -21,11 +21,10 @@ make -j4 install
 cp ./debug/libcls_arrow* /usr/lib64/rados-classes/
 cp -r /usr/local/lib64/. /usr/lib64
 
-# python api build
 cd /arrow/python
 
+pip3 install --upgrade setuptools==57.0.0 wheel
 pip3 install -r requirements-build.txt -r requirements-test.txt
-pip3 install --upgrade wheel setuptools
 
 export WORKDIR=${WORKDIR:-$HOME}
 export ARROW_HOME=$WORKDIR/dist

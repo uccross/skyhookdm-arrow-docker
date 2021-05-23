@@ -1,0 +1,80 @@
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+
+name: SkyhookDM-Arrow CI/CD
+
+# we need to build two type of images:
+# 1) for every release, uccross/skyhookdm-arrow:v0.1.0
+# 2) for every new commit pushed to `rados-dataset-dev`.
+on:
+  push:
+    paths:
+    - '.github/workflows/*'
+    - 'docker/*'
+
+  pull_request:
+    paths:
+    - '.github/workflows/*'
+    - 'docker/*'
+
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env: 
+      DOCKER_ORG: uccross
+    steps:
+    - name: Checkout
+      run: |
+        git clone \
+          --depth=1 \
+          https://github.com/uccross/skyhookdm-arrow-docker \
+          builder/
+
+    - name: Build Image
+      env:
+        CEPH_VERSION: v16.2
+      run: |
+        docker build \
+          -t $DOCKER_ORG/skyhookdm-arrow:latest \
+          --build-arg CEPH_VERSION=$CEPH_VERSION \
+          --file builder/docker/Dockerfile \
+          builder/docker/
+    
+    # - name: login to dockerhub
+    #   if: ${{ github.event_name == 'push' || github.event_name == 'release' }}
+    #   env:
+    #     DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+    #     DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    #   run: |
+    #     docker login -u "$DOCKER_USERNAME" \
+    #                  --password "$DOCKER_PASSWORD"
+
+    # - name: push development image
+    #   if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/rados-dataset-dev' }}
+    #   run: |
+    #     docker tag $DOCKER_ORG/skyhookdm-arrow:latest $DOCKER_ORG/skyhookdm-arrow:dev-$GITHUB_SHA
+    #     docker push $DOCKER_ORG/skyhookdm-arrow:dev-$GITHUB_SHA
+    
+    # - name: push production image
+    #   if: ${{ github.event_name == 'release' && startsWith(github.ref, 'refs/tags/v') }}
+    #   run: |
+    #     RELEASE_TAG=`echo $GITHUB_REF | cut -d'/' -f 3`
+    #     docker tag $DOCKER_ORG/skyhookdm-arrow:latest $DOCKER_ORG/skyhookdm-arrow:$RELEASE_TAG
+    #     docker push $DOCKER_ORG/skyhookdm-arrow:$RELEASE_TAG

@@ -1,11 +1,9 @@
-ARG CEPH_VERSION=v15.2.4
-
+ARG CEPH_VERSION=v16.2
 FROM ceph/ceph:${CEPH_VERSION}
 
-ARG UCCROSS_ARROW_BRANCH=rados-dataset-dev
+ARG UCCROSS_ARROW_BRANCH=arrow-master
 
-ADD docker/script.sh /
-
+ADD script.sh /
 WORKDIR /
 
 RUN dnf group install -y "Development Tools" && \
@@ -19,6 +17,6 @@ RUN dnf group install -y "Development Tools" && \
     git clone \
         --branch ${UCCROSS_ARROW_BRANCH} \
         --depth=1 \
-        https://github.com/uccross/arrow && \
+        https://github.com/uccross/arrow /arrow && \
     ./script.sh && \
     rm -r /arrow
