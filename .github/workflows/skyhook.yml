@@ -57,14 +57,14 @@ jobs:
           --file builder/docker/Dockerfile \
           builder/docker/
     
-    # - name: login to dockerhub
-    #   if: ${{ github.event_name == 'push' || github.event_name == 'release' }}
-    #   env:
-    #     DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-    #     DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-    #   run: |
-    #     docker login -u "$DOCKER_USERNAME" \
-    #                  --password "$DOCKER_PASSWORD"
+    - name: login to dockerhub
+      if: ${{ github.event_name == 'push' || github.event_name == 'release' }}
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      run: |
+        docker login -u "$DOCKER_USERNAME" \
+                     --password "$DOCKER_PASSWORD"
 
     # - name: push development image
     #   if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/rados-dataset-dev' }}
