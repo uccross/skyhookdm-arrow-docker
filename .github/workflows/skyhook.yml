@@ -57,7 +57,7 @@ jobs:
           --file builder/docker/Dockerfile \
           builder/docker/
     
-    - name: login to dockerhub
+    - name: Login to dockerhub
       if: ${{ github.event_name == 'push' || github.event_name == 'release' }}
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}

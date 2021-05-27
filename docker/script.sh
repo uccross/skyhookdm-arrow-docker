@@ -44,7 +44,6 @@ python3 setup.py build_ext --inplace --bundle-arrow-cpp bdist_wheel
 pip3 install dist/*.whl
 cp -r dist/*.whl /
 
-# check installation
 python3 -c "import pyarrow"
 python3 -c "import pyarrow.dataset"
 python3 -c "import pyarrow.parquet"
