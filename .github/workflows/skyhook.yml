@@ -15,11 +15,8 @@
 # specific language governing permissions and limitations
 # under the License.
 
-name: SkyhookDM-Arrow CI/CD
+name: SkyhookDM-Arrow CD
 
-# we need to build two type of images:
-# 1) for every release, uccross/skyhookdm-arrow:v0.1.0
-# 2) for every new commit pushed to `rados-dataset-dev`.
 on:
   push:
     paths:
@@ -47,7 +44,7 @@ jobs:
           https://github.com/uccross/skyhookdm-arrow-docker \
           builder/
 
-    - name: Build Image
+    - name: Build Image (Dev)
       env:
         CEPH_VERSION: v16.2
       run: |
@@ -56,9 +53,23 @@ jobs:
           --build-arg CEPH_VERSION=$CEPH_VERSION \
           --file builder/docker/Dockerfile \
           builder/docker/
+
+    - name: Build Image (Release)
+      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/heads/v') }}
+
+      env:
+        CEPH_VERSION: v16.2
+      run: |
+        RELEASE_TAG=`echo $GITHUB_REF | cut -d'/' -f 3`
+        docker build \
+          -t $DOCKER_ORG/skyhookdm-arrow:latest \
+          --build-arg CEPH_VERSION=$CEPH_VERSION \
+          --build-arg UCCROSS_ARROW_BRANCH=$RELEASE_TAG \
+          --file builder/docker/Dockerfile \
+          builder/docker/
     
     - name: Login to dockerhub
-      if: ${{ github.event_name == 'push' || github.event_name == 'release' }}
+      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/heads/v') }}
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
@@ -66,15 +77,9 @@ jobs:
         docker login -u "$DOCKER_USERNAME" \
                      --password "$DOCKER_PASSWORD"
 
-    # - name: push development image
-    #   if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/rados-dataset-dev' }}
-    #   run: |
-    #     docker tag $DOCKER_ORG/skyhookdm-arrow:latest $DOCKER_ORG/skyhookdm-arrow:dev-$GITHUB_SHA
-    #     docker push $DOCKER_ORG/skyhookdm-arrow:dev-$GITHUB_SHA
-    
-    # - name: push production image
-    #   if: ${{ github.event_name == 'release' && startsWith(github.ref, 'refs/tags/v') }}
-    #   run: |
-    #     RELEASE_TAG=`echo $GITHUB_REF | cut -d'/' -f 3`
-    #     docker tag $DOCKER_ORG/skyhookdm-arrow:latest $DOCKER_ORG/skyhookdm-arrow:$RELEASE_TAG
-    #     docker push $DOCKER_ORG/skyhookdm-arrow:$RELEASE_TAG
+    - name: Push Image
+      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/heads/v') }}
+      run: |
+        RELEASE_TAG=`echo $GITHUB_REF | cut -d'/' -f 3`
+        docker tag $DOCKER_ORG/skyhookdm-arrow:latest $DOCKER_ORG/skyhookdm-arrow:$RELEASE_TAG
+        docker push $DOCKER_ORG/skyhookdm-arrow:$RELEASE_TAG
