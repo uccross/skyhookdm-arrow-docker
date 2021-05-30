@@ -45,6 +45,7 @@ jobs:
           builder/
 
     - name: Build Image (Dev)
+      if: ${{ github.event_name == 'push' && !startsWith(github.ref, 'refs/heads/v') }}
       env:
         CEPH_VERSION: v16.2
       run: |
