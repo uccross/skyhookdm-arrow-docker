@@ -9,6 +9,7 @@ WORKDIR /
 RUN dnf group install -y "Development Tools" && \
     dnf install -y cmake \
                    wget \
+                   libarchive \
                    curl \
                    rados-objclass-devel \
                    python3-rados \

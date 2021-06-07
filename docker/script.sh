@@ -3,9 +3,9 @@ set -eux
 
 cd /arrow/cpp
 
-mkdir -p debug
-cd debug
-cmake -DCMAKE_BUILD_TYPE=Debug \
+mkdir -p release
+cd release
+cmake -DCMAKE_BUILD_TYPE=release \
           -DARROW_CLS=ON \
           -DARROW_PARQUET=ON \
           -DARROW_WITH_SNAPPY=ON \
@@ -18,7 +18,7 @@ cmake -DCMAKE_BUILD_TYPE=Debug \
 
 make -j4 install
 
-cp ./debug/libcls_arrow* /usr/lib64/rados-classes/
+cp ./release/libcls_arrow* /usr/lib64/rados-classes/
 cp -r /usr/local/lib64/. /usr/lib64
 
 cd /arrow/python
@@ -29,7 +29,7 @@ pip3 install -r requirements-build.txt -r requirements-test.txt
 export WORKDIR=${WORKDIR:-$HOME}
 export ARROW_HOME=$WORKDIR/dist
 export LD_LIBRARY_PATH=$ARROW_HOME/lib
-export PYARROW_BUILD_TYPE=Debug
+export PYARROW_BUILD_TYPE=release
 export PYARROW_WITH_DATASET=1
 export PYARROW_WITH_PARQUET=1
 export PYARROW_WITH_RADOS=1
