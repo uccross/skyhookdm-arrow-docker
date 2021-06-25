@@ -19,8 +19,6 @@ name: SkyhookDM CD
 
 on:
   push:
-    paths:
-    - '*'
 
   pull_request:
     paths:
