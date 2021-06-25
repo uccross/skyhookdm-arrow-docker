@@ -5,16 +5,16 @@ cd /arrow/cpp
 
 mkdir -p release
 cd release
-cmake -DCMAKE_BUILD_TYPE=release \
-          -DARROW_CLS=ON \
-          -DARROW_PARQUET=ON \
-          -DARROW_WITH_SNAPPY=ON \
-          -DARROW_WITH_ZLIB=ON \
-          -DARROW_WITH_LZ4=ON \
-          -DARROW_DATASET=ON \
-          -DARROW_PYTHON=ON \
-          -DARROW_CSV=ON \
-          ..
+cmake \
+        -DARROW_CLS=ON \
+        -DARROW_PARQUET=ON \
+        -DARROW_WITH_SNAPPY=ON \
+        -DARROW_WITH_ZLIB=ON \
+        -DARROW_WITH_LZ4=ON \
+        -DARROW_DATASET=ON \
+        -DARROW_PYTHON=ON \
+        -DARROW_CSV=ON \
+        ..
 
 make -j4 install
 
@@ -29,7 +29,6 @@ pip3 install -r requirements-build.txt -r requirements-test.txt
 export WORKDIR=${WORKDIR:-$HOME}
 export ARROW_HOME=$WORKDIR/dist
 export LD_LIBRARY_PATH=$ARROW_HOME/lib
-export PYARROW_BUILD_TYPE=release
 export PYARROW_WITH_DATASET=1
 export PYARROW_WITH_PARQUET=1
 export PYARROW_WITH_RADOS=1
@@ -47,3 +46,4 @@ cp -r dist/*.whl /
 python3 -c "import pyarrow"
 python3 -c "import pyarrow.dataset"
 python3 -c "import pyarrow.parquet"
+python3 -c "from pyarrow.dataset import RadosParquetFileFormat"
