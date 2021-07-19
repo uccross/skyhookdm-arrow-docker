@@ -41,6 +41,18 @@ jobs:
           https://github.com/uccross/skyhookdm-arrow-docker \
           builder/
 
+    - name: Build Image (Dev)
+      if: ${{ github.event_name == 'push' && !startsWith(github.ref, 'refs/heads/v') }}
+
+      env:
+        CEPH_VERSION: v16.2
+      run: |
+        RELEASE_TAG=`echo $GITHUB_REF | cut -d'/' -f 3`
+        docker build \
+          -t $DOCKER_ORG/skyhookdm-arrow-benchmark:latest \
+          --file builder/docker-benchmark/Dockerfile \
+          builder/docker-benchmark/
+
     - name: Build Image (Release)
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/heads/v') }}
 
