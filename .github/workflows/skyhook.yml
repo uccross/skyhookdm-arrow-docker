@@ -19,8 +19,9 @@ name: SkyhookDM Official Image
 
 on:
   push:
-  pull_request:
-  release:
+    paths:
+      - .github/workflows/skyhook.yml
+      - docker/*
 
 jobs:
   build:
