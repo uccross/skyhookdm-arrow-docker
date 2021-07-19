@@ -8,16 +8,14 @@ RUN dnf group install -y "Development Tools" && \
                    openssl-devel \
                    bzip2-devel \
                    libffi-devel \
-                   zlib-devel
-
-RUN wget https://www.python.org/ftp/python/3.9.6/Python-3.9.6.tgz && \
+                   zlib-devel && \
+    wget https://www.python.org/ftp/python/3.9.6/Python-3.9.6.tgz && \
     tar xzf Python-3.9.6.tgz && \
     cd Python-3.9.6 && \
-    ./configure --enable-optimizations --with-system-ffi --with-computed-gotos --enable-loadable-sqlite-extensions  && \
+    ./configure --enable-optimizations && \
     make -j$(nproc) && \
     make altinstall && \
     cd .. && \
     rm -rf Python-3.9.6.tgz && \
-    rm -rf Python-3.9.6
-
-RUN python3.9 -V && pip3.9 --version
+    rm -rf Python-3.9.6 && \
+    python3.9 -V && pip3.9 --version
