@@ -2,11 +2,11 @@
 
 Docker image containing SkyhookDM built on top of Arrow along with C++ and Python API clients.
 
-[![skyhook image pulls](https://img.shields.io/docker/pulls/uccross/skyhookdm-arrow)](https://hub.docker.com/r/uccross/skyhookdm-arrow)
+SkyhookDM-Arrow: [![skyhook image pulls](https://img.shields.io/docker/pulls/uccross/skyhookdm-arrow)](https://hub.docker.com/r/uccross/skyhookdm-arrow)
 
-[![skyhook benchmark image pulls](https://img.shields.io/docker/pulls/uccross/skyhookdm-arrow-benchmark)](https://hub.docker.com/r/uccross/skyhookdm-arrow)
+SkyhookDM-Arrow-Benchmark: [![skyhook benchmark image pulls](https://img.shields.io/docker/pulls/uccross/skyhookdm-arrow-benchmark)](https://hub.docker.com/r/uccross/skyhookdm-arrow)
 
-### Triggering a release build of both SkyhookDM and SkyhookDM Benchmark images
+### Triggering release builds
 
 ```bash
 ./release_skyhook.sh [tag]
