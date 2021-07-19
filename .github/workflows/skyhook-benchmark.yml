@@ -19,14 +19,8 @@ name: SkyhookDM Benchmark Image
 
 on:
   push:
-
   pull_request:
-    paths:
-    - '.github/workflows/*'
-    - 'docker-benchmark/*'
-
   release:
-    types: [published]
 
 jobs:
   build:

@@ -15,18 +15,12 @@
 # specific language governing permissions and limitations
 # under the License.
 
-name: SkyhookDM CD
+name: SkyhookDM Official Image
 
 on:
   push:
-
   pull_request:
-    paths:
-    - '.github/workflows/*'
-    - 'docker/*'
-
   release:
-    types: [published]
 
 jobs:
   build:
