@@ -20,4 +20,4 @@ RUN wget https://www.python.org/ftp/python/3.9.6/Python-3.9.6.tgz && \
     rm -rf Python-3.9.6.tgz && \
     rm -rf Python-3.9.6
 
-RUN python3.9 -v && pip3.9 --version
+RUN python3 -V && pip3 --version
