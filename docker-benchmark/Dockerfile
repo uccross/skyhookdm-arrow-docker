@@ -13,11 +13,11 @@ RUN dnf group install -y "Development Tools" && \
 RUN wget https://www.python.org/ftp/python/3.9.6/Python-3.9.6.tgz && \
     tar xzf Python-3.9.6.tgz && \
     cd Python-3.9.6 && \
-    ./configure --prefix=/usr/local/python3.9.6 --enable-optimizations --enable-shared && \
+    ./configure --enable-optimizations --with-system-ffi --with-computed-gotos --enable-loadable-sqlite-extensions  && \
     make -j$(nproc) && \
-    make install && \
+    make altinstall && \
     cd .. && \
     rm -rf Python-3.9.6.tgz && \
     rm -rf Python-3.9.6
 
-RUN python3 -V && pip3 --version
+RUN python3.9 -V && pip3.9 --version
