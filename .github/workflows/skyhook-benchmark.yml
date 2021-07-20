@@ -76,3 +76,4 @@ jobs:
         RELEASE_TAG=`echo $GITHUB_REF | cut -d'/' -f 3`
         docker tag $DOCKER_ORG/skyhookdm-arrow-benchmark:latest $DOCKER_ORG/skyhookdm-arrow-benchmark:$RELEASE_TAG
         docker push $DOCKER_ORG/skyhookdm-arrow-benchmark:$RELEASE_TAG
+# Triggering release build
