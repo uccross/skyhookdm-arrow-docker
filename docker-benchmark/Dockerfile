@@ -5,6 +5,7 @@ RUN dnf group install -y "Development Tools" && \
     dnf install -y yum-utils \ 
                    make \ 
                    gcc \
+                   xz-devel \
                    openssl-devel \
                    bzip2-devel \
                    libffi-devel \
