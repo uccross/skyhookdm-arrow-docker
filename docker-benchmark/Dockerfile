@@ -18,6 +18,7 @@ RUN dnf group install -y "Development Tools" && \
                    openssl-devel \
                    bzip2-devel \
                    libffi-devel \
+                   python3-rados \
                    zlib-devel \
                    rados-objclass-devel \
                    librados-devel && \
@@ -32,7 +33,6 @@ RUN dnf group install -y "Development Tools" && \
     rm -rf Python-3.9.6.tgz && \
     rm -rf Python-3.9.6 && \
     python3.9 -V && pip3.9 --version && \
-    dnf install -y python3.9-rados && \
     git clone \
         --branch ${UCCROSS_ARROW_BRANCH} \
         --depth=1 \
