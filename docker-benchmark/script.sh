@@ -11,6 +11,7 @@ cmake \
         -DARROW_WITH_SNAPPY=ON \
         -DARROW_WITH_ZLIB=ON \
         -DARROW_WITH_LZ4=ON \
+        -DPython3_EXECUTABLE=/usr/local/bin/python3.9 \
         -DARROW_DATASET=ON \
         -DARROW_PYTHON=ON \
         -DARROW_CSV=ON \
