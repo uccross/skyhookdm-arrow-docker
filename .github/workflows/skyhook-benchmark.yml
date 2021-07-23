@@ -77,3 +77,4 @@ jobs:
         docker tag $DOCKER_ORG/skyhookdm-arrow-benchmark:latest $DOCKER_ORG/skyhookdm-arrow-benchmark:$RELEASE_TAG
         docker push $DOCKER_ORG/skyhookdm-arrow-benchmark:$RELEASE_TAG
 # Triggering release build
+# Triggering release build
