@@ -33,6 +33,7 @@ RUN dnf group install -y "Development Tools" && \
     rm -rf Python-3.9.6.tgz && \
     rm -rf Python-3.9.6 && \
     python3.9 -V && pip3.9 --version && \
+    pip3.9 install numpy && \
     git clone \
         --branch ${UCCROSS_ARROW_BRANCH} \
         --depth=1 \
