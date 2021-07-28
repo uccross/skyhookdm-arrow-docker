@@ -36,7 +36,7 @@ jobs:
           https://github.com/uccross/skyhookdm-arrow-docker \
           builder/
 
-    - name: Build Image (Dev)
+    - name: Build Image (Debug)
       if: ${{ github.event_name == 'push' && !startsWith(github.ref, 'refs/heads/v') }}
       env:
         CEPH_VERSION: v16.2
