@@ -47,4 +47,4 @@ cp -r dist/*.whl /
 python3.9 -c "import pyarrow"
 python3.9 -c "import pyarrow.dataset"
 python3.9 -c "import pyarrow.parquet"
-python3.9 -c "from pyarrow.dataset import RadosParquetFileFormat"
+python3.9 -c "from pyarrow.dataset import SkyhookFileFormat"

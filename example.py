@@ -2,7 +2,7 @@ import pyarrow as pa
 import pyarrow.dataset as ds
 import pyarrow.parquet as pq
 
-format_ = ds.RadosParquetFileFormat("/etc/ceph/ceph.conf", "cephfs-data0")
+format_ = ds.SkyhookFileFormat("parquet", "/etc/ceph/ceph.conf", "cephfs-data0")
 partitioning_ = ds.partitioning(
     pa.schema([("payment_type", pa.int32()), ("VendorID", pa.int32())]),
     flavor="hive"
