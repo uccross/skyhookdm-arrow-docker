@@ -6,7 +6,7 @@ cd /arrow/cpp
 mkdir -p release
 cd release
 cmake \
-        -DARROW_CLS=ON \
+        -DARROW_SKYHOOK=ON \
         -DARROW_PARQUET=ON \
         -DARROW_WITH_SNAPPY=ON \
         -DARROW_WITH_ZLIB=ON \
