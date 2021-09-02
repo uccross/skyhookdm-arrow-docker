@@ -38,33 +38,17 @@ jobs:
           https://github.com/uccross/skyhookdm-arrow-docker \
           builder/
 
-    - name: Build Image (Debug)
-      if: ${{ github.event_name == 'push' && !startsWith(github.ref, 'refs/heads/v') }}
-
+    - name: Build Image
       env:
         CEPH_VERSION: v16.2
       run: |
-        RELEASE_TAG=`echo $GITHUB_REF | cut -d'/' -f 3`
         docker build \
           -t $DOCKER_ORG/skyhookdm-arrow-benchmark:latest \
           --file builder/docker-benchmark/Dockerfile \
           builder/docker-benchmark/
 
-    - name: Build Image (Release)
-      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/heads/v') }}
-
-      env:
-        CEPH_VERSION: v16.2
-      run: |
-        RELEASE_TAG=`echo $GITHUB_REF | cut -d'/' -f 3`
-        docker build \
-          -t $DOCKER_ORG/skyhookdm-arrow-benchmark:latest \
-          --build-arg SKYHOOK_VERSION=$RELEASE_TAG \
-          --file builder/docker-benchmark/Dockerfile \
-          builder/docker-benchmark/
 
     - name: Login to dockerhub
-      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/heads/v') }}
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
@@ -73,9 +57,5 @@ jobs:
                      --password "$DOCKER_PASSWORD"
 
     - name: Push Image
-      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/heads/v') }}
       run: |
-        RELEASE_TAG=`echo $GITHUB_REF | cut -d'/' -f 3`
-        docker tag $DOCKER_ORG/skyhookdm-arrow-benchmark:latest $DOCKER_ORG/skyhookdm-arrow-benchmark:$RELEASE_TAG
-        docker push $DOCKER_ORG/skyhookdm-arrow-benchmark:$RELEASE_TAG
-# Triggering release build
+        docker push $DOCKER_ORG/skyhookdm-arrow-benchmark:latest
