@@ -59,3 +59,12 @@ jobs:
     - name: Push Image
       run: |
         docker push $DOCKER_ORG/skyhookdm-arrow-benchmark:latest
+
+    - name: Trigger Benchmark Workflow
+      run: |
+        curl \
+        -X POST \
+        -H "Accept: application/vnd.github.v3+json" \
+        -u JayjeetAtGithub:${{ secrets.PAT }} \
+        https://api.github.com/repos/rahul799/benchmarks/dispatches \
+        -d '{  "event_type": "run", "client_payload": {"ref": "${{ github.event.client_payload.ref }}"} }'
