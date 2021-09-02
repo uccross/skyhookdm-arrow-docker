@@ -34,27 +34,27 @@ jobs:
           https://github.com/uccross/skyhookdm-arrow-docker \
           builder/
 
-    - name: Build Image
-      env:
-        CEPH_VERSION: v16.2
-      run: |
-        docker build \
-          -t $DOCKER_ORG/skyhookdm-arrow-benchmark:latest \
-          --build-arg UCCROSS_ARROW_BRANCH=${{ github.event.client_payload.branch }} \
-          --file builder/docker-benchmark/Dockerfile \
-          builder/docker-benchmark/
+    # - name: Build Image
+    #   env:
+    #     CEPH_VERSION: v16.2
+    #   run: |
+    #     docker build \
+    #       -t $DOCKER_ORG/skyhookdm-arrow-benchmark:latest \
+    #       --build-arg UCCROSS_ARROW_BRANCH=${{ github.event.client_payload.branch }} \
+    #       --file builder/docker-benchmark/Dockerfile \
+    #       builder/docker-benchmark/
 
-    - name: Login to DockerHub
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      run: |
-        docker login -u "$DOCKER_USERNAME" \
-                     --password "$DOCKER_PASSWORD"
+    # - name: Login to DockerHub
+    #   env:
+    #     DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+    #     DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    #   run: |
+    #     docker login -u "$DOCKER_USERNAME" \
+    #                  --password "$DOCKER_PASSWORD"
 
-    - name: Push Image
-      run: |
-        docker push $DOCKER_ORG/skyhookdm-arrow-benchmark:latest
+    # - name: Push Image
+    #   run: |
+    #     docker push $DOCKER_ORG/skyhookdm-arrow-benchmark:latest
 
     - name: Trigger Benchmark Workflow
       run: |
