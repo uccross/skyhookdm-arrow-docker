@@ -18,6 +18,8 @@
 name: SkyhookDM Benchmark Image
 
 on:
+  repository_dispatch:
+    types: [run]
   push:
     paths:
       - .github/workflows/skyhook-benchmark.yml
