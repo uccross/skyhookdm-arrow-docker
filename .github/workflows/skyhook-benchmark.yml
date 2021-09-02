@@ -40,6 +40,7 @@ jobs:
       run: |
         docker build \
           -t $DOCKER_ORG/skyhookdm-arrow-benchmark:latest \
+          --build-arg UCCROSS_ARROW_BRANCH=${{ github.event.client_payload.branch }} \
           --file builder/docker-benchmark/Dockerfile \
           builder/docker-benchmark/
 
