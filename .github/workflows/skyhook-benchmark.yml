@@ -38,14 +38,14 @@ jobs:
           https://github.com/uccross/skyhookdm-arrow-docker \
           builder/
 
-    - name: Build Image
-      env:
-        CEPH_VERSION: v16.2
-      run: |
-        docker build \
-          -t $DOCKER_ORG/skyhookdm-arrow-benchmark:latest \
-          --file builder/docker-benchmark/Dockerfile \
-          builder/docker-benchmark/
+    # - name: Build Image
+    #   env:
+    #     CEPH_VERSION: v16.2
+    #   run: |
+    #     docker build \
+    #       -t $DOCKER_ORG/skyhookdm-arrow-benchmark:latest \
+    #       --file builder/docker-benchmark/Dockerfile \
+    #       builder/docker-benchmark/
 
 
     - name: Login to dockerhub
@@ -56,9 +56,9 @@ jobs:
         docker login -u "$DOCKER_USERNAME" \
                      --password "$DOCKER_PASSWORD"
 
-    - name: Push Image
-      run: |
-        docker push $DOCKER_ORG/skyhookdm-arrow-benchmark:latest
+    # - name: Push Image
+    #   run: |
+    #     docker push $DOCKER_ORG/skyhookdm-arrow-benchmark:latest
 
     - name: Trigger Benchmark Workflow
       run: |
