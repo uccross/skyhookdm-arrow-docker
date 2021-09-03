@@ -22,7 +22,7 @@ on:
     types: [run]
 
 jobs:
-  build:
+  trigger:
     runs-on: ubuntu-latest
     env: 
       DOCKER_ORG: uccross
