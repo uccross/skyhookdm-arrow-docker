@@ -63,4 +63,4 @@ jobs:
         -H "Accept: application/vnd.github.v3+json" \
         -u JayjeetAtGithub:${{ secrets.PAT }} \
         https://api.github.com/repos/uccross/benchmarks/dispatches \
-        -d '{  "event_type": "run", "client_payload": {"ref": "${{ github.event.client_payload.ref }}"} }'
+        -d '{  "event_type": "run", "client_payload": {"ref": "${{ github.event.client_payload.ref }}", "commit_sha": "${{ github.event.client_payload.commit_sha }}"} }'
