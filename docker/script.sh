@@ -6,7 +6,7 @@ cd /arrow/cpp
 mkdir -p release
 cd release
 cmake \
-        -DARROW_CLS=ON \
+        -DARROW_SKYHOOK=ON \
         -DARROW_PARQUET=ON \
         -DARROW_WITH_SNAPPY=ON \
         -DARROW_WITH_ZLIB=ON \
@@ -18,7 +18,7 @@ cmake \
 
 make -j4 install
 
-cp ./release/libcls_arrow* /usr/lib64/rados-classes/
+cp ./release/libcls_skyhook* /usr/lib64/rados-classes/
 cp -r /usr/local/lib64/. /usr/lib64
 
 cd /arrow/python
