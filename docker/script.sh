@@ -31,7 +31,7 @@ export ARROW_HOME=$WORKDIR/dist
 export LD_LIBRARY_PATH=$ARROW_HOME/lib
 export PYARROW_WITH_DATASET=1
 export PYARROW_WITH_PARQUET=1
-export PYARROW_WITH_RADOS=1
+export PYARROW_WITH_SKYHOOK=1
 
 mkdir -p /root/dist/lib
 mkdir -p /root/dist/include
