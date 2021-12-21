@@ -18,7 +18,7 @@ cmake \
 
 make -j4 install
 
-cp ./release/libcls_skyhook* /usr/lib64/rados-classes/
+cp ./release/libcls_arrow* /usr/lib64/rados-classes/
 cp -r /usr/local/lib64/. /usr/lib64
 
 cd /arrow/python
